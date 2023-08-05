@@ -66,10 +66,7 @@ def additive_persistence(num: int) -> int:
     while len(num_string) != 1:
         numbers = [int(i) for i in num_string]
 
-        total = 0
-        for i in range(0, len(numbers)):
-            total += numbers[i]
-
+        total = sum(numbers[i] for i in range(0, len(numbers)))
         num_string = str(total)
 
         steps += 1

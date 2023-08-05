@@ -88,8 +88,7 @@ class Tableau:
         string_starts = ["x", "s", "a"]
         titles = []
         for i in range(3):
-            for j in range(args[i]):
-                titles.append(string_starts[i] + str(j + 1))
+            titles.extend(string_starts[i] + str(j + 1) for j in range(args[i]))
         titles.append("RHS")
         return titles
 

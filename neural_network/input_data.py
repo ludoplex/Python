@@ -104,9 +104,7 @@ def _extract_labels(f, one_hot=False, num_classes=10):
         num_items = _read32(bytestream)
         buf = bytestream.read(num_items)
         labels = numpy.frombuffer(buf, dtype=numpy.uint8)
-        if one_hot:
-            return _dense_to_one_hot(labels, num_classes)
-        return labels
+        return _dense_to_one_hot(labels, num_classes) if one_hot else labels
 
 
 class _DataSet:
