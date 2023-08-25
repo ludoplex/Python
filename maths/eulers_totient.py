@@ -15,7 +15,7 @@ def totient(n: int) -> list:
     8 has 4 relative primes.
     9 has 6 relative primes.
     """
-    is_prime = [True for i in range(n + 1)]
+    is_prime = [True for _ in range(n + 1)]
     totients = [i - 1 for i in range(n + 1)]
     primes = []
     for i in range(2, n + 1):

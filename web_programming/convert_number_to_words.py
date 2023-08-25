@@ -14,45 +14,42 @@ def convert(number: int) -> str:
     else:
         digits = math.log10(number)
         digits = digits + 1
-        singles = {}
-        singles[0] = ""
-        singles[1] = "One"
-        singles[2] = "Two"
-        singles[3] = "Three"
-        singles[4] = "Four"
-        singles[5] = "Five"
-        singles[6] = "Six"
-        singles[7] = "Seven"
-        singles[8] = "Eight"
-        singles[9] = "Nine"
-
-        doubles = {}
-        doubles[0] = ""
-        doubles[2] = "Twenty"
-        doubles[3] = "Thirty"
-        doubles[4] = "Forty"
-        doubles[5] = "Fifty"
-        doubles[6] = "Sixty"
-        doubles[7] = "Seventy"
-        doubles[8] = "Eighty"
-        doubles[9] = "Ninety"
-
-        teens = {}
-        teens[0] = "Ten"
-        teens[1] = "Eleven"
-        teens[2] = "Twelve"
-        teens[3] = "Thirteen"
-        teens[4] = "Fourteen"
-        teens[5] = "Fifteen"
-        teens[6] = "Sixteen"
-        teens[7] = "Seventeen"
-        teens[8] = "Eighteen"
-        teens[9] = "Nineteen"
-
-        placevalue = {}
-        placevalue[2] = "Hundred,"
-        placevalue[3] = "Thousand,"
-        placevalue[5] = "Lakh,"
+        singles = {
+            0: "",
+            1: "One",
+            2: "Two",
+            3: "Three",
+            4: "Four",
+            5: "Five",
+            6: "Six",
+            7: "Seven",
+            8: "Eight",
+            9: "Nine",
+        }
+        doubles = {
+            0: "",
+            2: "Twenty",
+            3: "Thirty",
+            4: "Forty",
+            5: "Fifty",
+            6: "Sixty",
+            7: "Seventy",
+            8: "Eighty",
+            9: "Ninety",
+        }
+        teens = {
+            0: "Ten",
+            1: "Eleven",
+            2: "Twelve",
+            3: "Thirteen",
+            4: "Fourteen",
+            5: "Fifteen",
+            6: "Sixteen",
+            7: "Seventeen",
+            8: "Eighteen",
+            9: "Nineteen",
+        }
+        placevalue = {2: "Hundred,", 3: "Thousand,", 5: "Lakh,"}
         placevalue[7] = "Crore,"
 
         temp_num = number
@@ -65,15 +62,16 @@ def convert(number: int) -> str:
                 addition = ""
                 if counter in placevalue and current != 0:
                     addition = placevalue[counter]
-                if counter == 2:
+                if (
+                    counter != 2
+                    and counter == 0
+                    and ((temp_num % 100) // 10) == 1
+                ):
+                    words = teens[current] + addition + words
+                    temp_num = temp_num // 10
+                    counter += 1
+                elif counter != 2 and counter == 0 or counter == 2:
                     words = singles[current] + addition + words
-                elif counter == 0:
-                    if ((temp_num % 100) // 10) == 1:
-                        words = teens[current] + addition + words
-                        temp_num = temp_num // 10
-                        counter += 1
-                    else:
-                        words = singles[current] + addition + words
 
                 else:
                     words = doubles[current] + addition + words
